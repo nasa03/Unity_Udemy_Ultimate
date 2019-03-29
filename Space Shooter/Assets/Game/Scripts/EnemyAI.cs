@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField]
+    private GameObject EnemyExplosion;
+    [SerializeField]
     private float speed = 3.0f;
     private Vector3 spawnPosition;
 
@@ -73,12 +75,14 @@ public class EnemyAI : MonoBehaviour
         if(other.tag=="Player")
         {
             //Destroy(gameObject);
+            Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             ReSpawn();
         }
 
         if(other.tag=="Projectile")
         {
             //Destroy(gameObject);
+            Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             ReSpawn();
         }
     }

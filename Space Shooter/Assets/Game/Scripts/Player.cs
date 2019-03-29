@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private GameObject Explosion;
+    [SerializeField]
     private int Energy=3;
     public bool isTripleShot = false;
     public bool isSpeedBoost = false;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         Shooting();
         if(Energy <=0)
         {
+            Instantiate(Explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

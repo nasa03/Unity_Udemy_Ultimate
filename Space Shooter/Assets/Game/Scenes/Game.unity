@@ -223,6 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd2d4c96c894c94c9c680de47ad523f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Explosion: {fileID: 6676009568675369146, guid: 3d88e4a7f18de254aac4787a64a63ffb,
+    type: 3}
   Energy: 3
   isTripleShot: 0
   isSpeedBoost: 0
