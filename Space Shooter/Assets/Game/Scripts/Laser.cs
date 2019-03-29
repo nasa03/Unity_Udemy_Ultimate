@@ -18,6 +18,22 @@ public class Laser : MonoBehaviour
 
         if(!gameObject.GetComponent<Renderer>().isVisible)
         {
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag=="Enemy")
+        {
+            if(transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject);
+            }
             Destroy(gameObject);
         }
     }

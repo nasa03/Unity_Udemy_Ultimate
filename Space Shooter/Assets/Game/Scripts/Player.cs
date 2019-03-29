@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
+    private int Energy=3;
     public bool isTripleShot = false;
     public bool isSpeedBoost = false;
     [SerializeField]
@@ -33,6 +35,10 @@ public class Player : MonoBehaviour
         Movement();
 
         Shooting();
+        if(Energy <=0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Shooting()
@@ -150,5 +156,13 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         isTripleShot = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag=="Enemy")
+        {
+            Energy--;
+        }
     }
 }
