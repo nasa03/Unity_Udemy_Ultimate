@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+    public bool isTripleShot = false;
     [SerializeField]
     private float speed = 5.0f;
     [SerializeField]
-    private GameObject projectile;
+    private GameObject laser;
+    [SerializeField]
+    private GameObject tripleShot;
     private bool isShooting;
     public float shootingTime;
     private float currentShootingTime;
@@ -54,8 +56,16 @@ public class Player : MonoBehaviour
 
     void Fire()
     {
-        //Vector3 LaserPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Instantiate(projectile, transform);
+        Vector3 LaserPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        if(isTripleShot)
+        {
+            Instantiate(tripleShot, LaserPos, Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(laser, LaserPos, Quaternion.identity);
+        }
+        
         //Instantiate(laserPrefab);
         /*
         GameObject obj = ObjectPooler.GetComponent<ObjectPooler>().GetPooledObject();
@@ -107,5 +117,17 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, cam.transform.position.y - camHeight / 2.0f, transform.position.z);
         }
+    }
+
+    public void TripleShowPowerUpOn()
+    {
+        isTripleShot = true;
+        StartCoroutine(TripleShotPowerDownRoutine());
+    }
+
+    public IEnumerator TripleShotPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        isTripleShot = false;
     }
 }
