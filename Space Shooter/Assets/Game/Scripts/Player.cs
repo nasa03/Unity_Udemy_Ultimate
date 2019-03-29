@@ -5,11 +5,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
+    private GameObject ShieldObject;
+    [SerializeField]
     private GameObject Explosion;
     [SerializeField]
     private int Energy=3;
-    public bool isTripleShot = false;
-    public bool isSpeedBoost = false;
+    private bool isShielActive = false;
+    private bool isTripleShot = false;
+    private bool isSpeedBoost = false;
     [SerializeField]
     private float speed = 5.0f;
     [SerializeField]
@@ -28,20 +31,16 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ShieldObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
-
+   
         Shooting();
-        if(Energy <=0)
-        {
-            Instantiate(Explosion, transform.position, Quaternion.identity);
-            Destroy(gameObject);
-        }
+        
     }
 
     private void Shooting()
@@ -137,6 +136,21 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    public void ShieldPowerUpOn()
+    {
+        isShielActive = true;
+        ShieldObject.SetActive(isShielActive);
+        StartCoroutine(ShieldRoutine());
+    }
+
+    public IEnumerator ShieldRoutine()
+    {
+        yield return new WaitForSeconds(10);
+        isShielActive = false;
+        ShieldObject.SetActive(isShielActive);
+    }
+
     public void SpeedPowerUpOn()
     {
         isSpeedBoost = true;
@@ -161,11 +175,29 @@ public class Player : MonoBehaviour
         isTripleShot = false;
     }
 
+    void Damage()
+    {
+        if (isShielActive)
+        {
+            isShielActive = false;
+            ShieldObject.SetActive(isShielActive);
+            return;
+        }
+
+        Energy--;
+
+        if (Energy <= 0)
+        {
+            Instantiate(Explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag=="Enemy")
         {
-            Energy--;
+            Damage();
         }
     }
 }
