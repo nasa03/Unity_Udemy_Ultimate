@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public bool isTripleShot = false;
+    public bool isSpeedBoost = false;
     [SerializeField]
     private float speed = 5.0f;
     [SerializeField]
@@ -95,7 +96,15 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float vecticallInput = Input.GetAxis("Vertical");
         Vector3 Direction = new Vector3(horizontalInput, vecticallInput, transform.position.z);
-        transform.Translate(Direction * Time.deltaTime * speed);
+
+        if(isSpeedBoost)
+        {
+            transform.Translate(Direction * Time.deltaTime * (speed * 1.5f));
+        }else
+        {
+            transform.Translate(Direction * Time.deltaTime * speed);
+        }
+        
 
         if (transform.position.x > cam.transform.position.x + camWidth / 2.0f)
         {
@@ -117,6 +126,18 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, cam.transform.position.y - camHeight / 2.0f, transform.position.z);
         }
+    }
+
+    public void SpeedPowerUpOn()
+    {
+        isSpeedBoost = true;
+        StartCoroutine(SpeedPowerUpRoutine());
+    }
+
+    public IEnumerator SpeedPowerUpRoutine()
+    {
+        yield return new WaitForSeconds(5);
+        isSpeedBoost = false;
     }
 
     public void TripleShowPowerUpOn()
