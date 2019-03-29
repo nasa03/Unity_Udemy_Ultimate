@@ -222,6 +222,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  projectile: {fileID: 2021686813267104418, guid: 150909e9da00d6a4884907faeda08c47,
+    type: 3}
+  shootingTime: 0.25
+  projecileSpawnPoint: {fileID: 0}
+  pooledAmount: 10
+  ObjectPooler: {fileID: 5016853814370609080, guid: 281c802d111a6c14b81388c41f80e7d9,
+    type: 3}
 --- !u!212 &1354686319
 SpriteRenderer:
   m_ObjectHideFlags: 0

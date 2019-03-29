@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    
     [SerializeField]
     private float speed = 5.0f;
-    
-   // public Transform Camera;
+    [SerializeField]
+    private GameObject projectile;
+    private bool isShooting;
+    public float shootingTime;
+    private float currentShootingTime;
+    //public Transform projecileSpawnPoint;
+    public int pooledAmount;
+    private List<GameObject> ProjectileList;
+    public GameObject ObjectPooler;
+
+    // public Transform Camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +28,50 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+
+        Shooting();
+    }
+
+    private void Shooting()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isShooting)
+        {
+            isShooting = true;
+            currentShootingTime = shootingTime;
+            Fire();
+        }
+
+        if (currentShootingTime > 0)
+        {
+            currentShootingTime -= Time.deltaTime;
+        }
+        else
+        {
+            isShooting = false;
+        }
+        
+    }
+
+    void Fire()
+    {
+        //Vector3 LaserPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Instantiate(projectile, transform);
+        //Instantiate(laserPrefab);
+        /*
+        GameObject obj = ObjectPooler.GetComponent<ObjectPooler>().GetPooledObject();
+        if (obj == null)
+        {
+            return;
+        }
+
+        obj.transform.position = projecileSpawnPoint.position;
+        obj.transform.rotation = transform.rotation;
+        obj.transform.localScale = transform.localScale;
+        obj.SetActive(true);
+        obj.GetComponent<Projectile>().isAlive = true;
+        obj.GetComponent<Projectile>().isAllied = true;
+        obj.GetComponent<Projectile>().shootDirection1 = new Vector3(1.0f, 0.0f, 0.0f);
+        */
     }
 
 
