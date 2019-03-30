@@ -74,16 +74,17 @@ public class EnemyAI : MonoBehaviour
     {
         if(other.tag=="Player")
         {
-            //Destroy(gameObject);
+            
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
-            ReSpawn();
+            //ReSpawn();
+            Destroy(gameObject);
         }
 
-        if(other.tag=="Projectile")
+        if (other.tag=="Projectile")
         {
-            //Destroy(gameObject);
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
-            ReSpawn();
+            //ReSpawn();
+            Destroy(gameObject);
         }
     }
 
