@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && gameOver)
+        if ((Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space)) && gameOver)
         {
             
             gameOver = false;

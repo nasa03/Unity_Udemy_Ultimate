@@ -32,7 +32,6 @@ public class Player : MonoBehaviour
     private GameManager _gameManager;
     private AudioSource _audioSource;
 
-    // public Transform Camera;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +58,8 @@ public class Player : MonoBehaviour
 
     private void Shooting()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isShooting)
+        if (Input.GetMouseButton(0) && !isShooting)
+        //if (!isShooting)
         {
             isShooting = true;
             currentShootingTime = shootingTime;
@@ -116,18 +116,43 @@ public class Player : MonoBehaviour
         Camera cam = Camera.main;
         camHeight = 2f * cam.orthographicSize;
         camWidth = camHeight * cam.aspect;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float vecticallInput = Input.GetAxis("Vertical");
-        Vector3 Direction = new Vector3(horizontalInput, vecticallInput, transform.position.z);
-
-        if(isSpeedBoost)
-        {
-            transform.Translate(Direction * Time.deltaTime * (speed * 1.5f));
-        }else
-        {
-            transform.Translate(Direction * Time.deltaTime * speed);
-        }
         
+        Vector3 mousePosition;
+        
+        if (Input.GetMouseButton(0))
+        {
+            mousePosition = Input.mousePosition;
+            mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+            if (isSpeedBoost)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(mousePosition.x, mousePosition.y,0), Time.deltaTime * (speed * 1.5f));
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(mousePosition.x, mousePosition.y, 0), Time.deltaTime * (speed));
+            }
+           
+        }else if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") !=0)
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float vecticallInput = Input.GetAxis("Vertical");
+            Vector3 Direction = new Vector3(horizontalInput, vecticallInput, transform.position.z);
+
+            
+            if (isSpeedBoost)
+            {
+                transform.Translate(Direction * Time.deltaTime * (speed * 1.5f));
+            }else
+            {
+                transform.Translate(Direction * Time.deltaTime * speed);
+            }
+            
+        }
+
+        
+
+        // 
+
 
         if (transform.position.x > cam.transform.position.x + camWidth / 2.0f)
         {
