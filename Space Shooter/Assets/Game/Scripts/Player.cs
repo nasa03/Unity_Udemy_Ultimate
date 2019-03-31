@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private GameObject ShieldObject;
     [SerializeField]
     private GameObject Explosion;
+   // [SerializeField]
+    //private int Lives;
     [SerializeField]
     private int Energy=3;
     private bool isShielActive = false;
@@ -26,12 +28,21 @@ public class Player : MonoBehaviour
     public int pooledAmount;
     private List<GameObject> ProjectileList;
     public GameObject ObjectPooler;
+    private UIManager _uiManager;
+    private GameManager _gameManager;
 
     // public Transform Camera;
     // Start is called before the first frame update
     void Start()
     {
         ShieldObject.SetActive(false);
+
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        _gameManager = FindObjectOfType<GameManager>();
+        if (_uiManager !=null)
+        {
+            _uiManager.UpdateLives(Energy);
+        }
     }
 
     // Update is called once per frame
@@ -41,6 +52,7 @@ public class Player : MonoBehaviour
    
         Shooting();
         
+
     }
 
     private void Shooting()
@@ -185,12 +197,42 @@ public class Player : MonoBehaviour
         }
 
         Energy--;
+        if (_uiManager != null)
+        {
+            _uiManager.UpdateLives(Energy);
+            if (Energy<=0)
+            {
+                _uiManager.UpdateLives(0);
+            }
+            
+        }
 
         if (Energy <= 0)
         {
             Instantiate(Explosion, transform.position, Quaternion.identity);
+            if(_uiManager!=null)
+            {
+                _uiManager.SetMainMenu(true);
+            }
+
+            if(_gameManager !=null)
+            {
+                _gameManager.setGameOver(true);
+            }
+           
+            
             Destroy(gameObject);
         }
+    }
+
+    public int getCurrentEnergy()
+    {
+        return Energy;
+    }
+
+    public void setCurrentEnergy(int currentEnergy)
+    {
+        Energy = currentEnergy;
     }
 
     void OnTriggerEnter2D(Collider2D other)

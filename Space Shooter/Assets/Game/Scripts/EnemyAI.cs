@@ -10,9 +10,12 @@ public class EnemyAI : MonoBehaviour
     private float speed = 3.0f;
     private Vector3 spawnPosition;
 
+    private UIManager _uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         
     }
 
@@ -52,8 +55,9 @@ public class EnemyAI : MonoBehaviour
         }
         else if (transform.position.y < cam.transform.position.y - camHeight / 2.0f)
         {
-           // transform.position = new Vector3(transform.position.x, cam.transform.position.y - camHeight / 2.0f, transform.position.z);
-            ReSpawn();
+            // transform.position = new Vector3(transform.position.x, cam.transform.position.y - camHeight / 2.0f, transform.position.z);
+            //ReSpawn();
+            Destroy(gameObject);
         }
     }
 
@@ -77,13 +81,16 @@ public class EnemyAI : MonoBehaviour
             
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             //ReSpawn();
+            _uiManager.UpdateScore(5);
             Destroy(gameObject);
+            
         }
 
         if (other.tag=="Projectile")
         {
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             //ReSpawn();
+            _uiManager.UpdateScore(10);
             Destroy(gameObject);
         }
     }

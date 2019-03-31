@@ -10,25 +10,33 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] PowerUpsPrefab;
     private bool isSpawingEnemy=false;
     private bool isSpawingPoweup = false;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isSpawingEnemy)
+        if(_gameManager !=null)
         {
-            SpawnEnemyOn();
-        }
+            if(!_gameManager.getGameOver())
+            {
+                if (!isSpawingEnemy)
+                {
+                    SpawnEnemyOn();
+                }
 
-        if(!isSpawingPoweup)
-        {
-            SpawnPowerUpOn();
+                if (!isSpawingPoweup)
+                {
+                    SpawnPowerUpOn();
+                }
+            }
         }
+        
     }
 
     private void SpawnEnemyOn()//Spawns a new enemy in the game

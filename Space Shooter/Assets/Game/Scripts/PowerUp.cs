@@ -19,6 +19,17 @@ public class PowerUp : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * Speed * Time.deltaTime);
+
+        float camHeight;
+        float camWidth;
+        Camera cam = Camera.main;
+        camHeight = 2f * cam.orthographicSize;
+        camWidth = camHeight * cam.aspect;
+
+        if (transform.position.y < cam.transform.position.y - camHeight / 2.0f)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
