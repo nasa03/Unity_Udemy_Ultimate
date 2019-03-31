@@ -8,6 +8,8 @@ public class PowerUp : MonoBehaviour
     private float Speed = 3.0f;
     [SerializeField]
     private int powerUpId;//0= triple shot, 1= speed boost, 2= shields
+    [SerializeField]
+    private AudioClip _audioClip;
     
     // Start is called before the first frame update
     void Start()
@@ -51,7 +53,7 @@ public class PowerUp : MonoBehaviour
                     player.ShieldPowerUpOn();
                     break;
             }
-            
+            AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
             Destroy(gameObject);
         }
        

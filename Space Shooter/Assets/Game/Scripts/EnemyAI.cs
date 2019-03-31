@@ -11,6 +11,8 @@ public class EnemyAI : MonoBehaviour
     private Vector3 spawnPosition;
 
     private UIManager _uiManager;
+    [SerializeField]
+    private AudioClip _audioClip;
 
     // Start is called before the first frame update
     void Start()
@@ -82,6 +84,7 @@ public class EnemyAI : MonoBehaviour
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             //ReSpawn();
             _uiManager.UpdateScore(5);
+            AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
             Destroy(gameObject);
             
         }
@@ -91,6 +94,7 @@ public class EnemyAI : MonoBehaviour
             Instantiate(EnemyExplosion, transform.position, Quaternion.identity);
             //ReSpawn();
             _uiManager.UpdateScore(10);
+            AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
             Destroy(gameObject);
         }
     }

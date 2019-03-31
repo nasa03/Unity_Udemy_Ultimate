@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public GameObject ObjectPooler;
     private UIManager _uiManager;
     private GameManager _gameManager;
+    private AudioSource _audioSource;
 
     // public Transform Camera;
     // Start is called before the first frame update
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
 
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         _gameManager = FindObjectOfType<GameManager>();
+        _audioSource = GetComponent<AudioSource>();
         if (_uiManager !=null)
         {
             _uiManager.UpdateLives(Energy);
@@ -77,6 +79,7 @@ public class Player : MonoBehaviour
 
     void Fire()
     {
+        _audioSource.Play();
         Vector3 LaserPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if(isTripleShot)
         {
