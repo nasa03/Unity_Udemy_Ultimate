@@ -223,7 +223,7 @@ MonoBehaviour:
   gameOver: 1
   PlayerObject: {fileID: 7972243603207382361, guid: fe78a17595db1cc4cb66824b7bdf7d1d,
     type: 3}
-  targetFPS: 30
+  targetFPS: 60
 --- !u!4 &465979254
 Transform:
   m_ObjectHideFlags: 0
@@ -567,6 +567,7 @@ GameObject:
   - component: {fileID: 1390995981}
   - component: {fileID: 1390995980}
   - component: {fileID: 1390995983}
+  - component: {fileID: 1390995984}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -734,6 +735,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1390995984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390995979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 7bb625a032a600f4fad2e963aeda38de, type: 2}
 --- !u!1 &1651091195
 GameObject:
   m_ObjectHideFlags: 0
