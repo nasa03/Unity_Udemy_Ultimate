@@ -223,7 +223,7 @@ MonoBehaviour:
   gameOver: 1
   PlayerObject: {fileID: 7972243603207382361, guid: fe78a17595db1cc4cb66824b7bdf7d1d,
     type: 3}
-  targetFPS: 60
+  targetFPS: 30
 --- !u!4 &465979254
 Transform:
   m_ObjectHideFlags: 0
