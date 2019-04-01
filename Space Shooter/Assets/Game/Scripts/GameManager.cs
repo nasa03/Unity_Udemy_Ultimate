@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public bool gameOver = true;
     public Player PlayerObject;
     private UIManager _uiManager;
+    [SerializeField]
+    private int targetFPS = 30;
+    private bool isFPSTargetReady = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +20,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!isFPSTargetReady)
+        {
+            Application.targetFrameRate = targetFPS;
+            QualitySettings.vSyncCount = 0;
+            isFPSTargetReady = true;
+        }
         if ((Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space)) && gameOver)
         {
             

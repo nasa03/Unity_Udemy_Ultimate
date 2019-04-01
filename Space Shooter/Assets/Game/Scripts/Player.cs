@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private UIManager _uiManager;
     private GameManager _gameManager;
     private AudioSource _audioSource;
+    [SerializeField]
+    private GameObject[] Engines;
 
     // Start is called before the first frame update
     void Start()
@@ -250,6 +252,16 @@ public class Player : MonoBehaviour
            
             
             Destroy(gameObject);
+        }else{
+            if(Energy==2)
+            {
+                Engines[0].SetActive(true);
+            }
+            if(Energy==1)
+            {
+                Engines[1].SetActive(true);
+            }
+            
         }
     }
 
