@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        //PlayerObject = Instantiate(PlayerObject, Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -31,7 +32,8 @@ public class GameManager : MonoBehaviour
             
             gameOver = false;
 
-            Instantiate(PlayerObject, Vector3.zero, Quaternion.identity);
+            //Instantiate(PlayerObject, Vector3.zero, Quaternion.identity);
+            PlayerObject.gameObject.SetActive(true);
             _uiManager.SetMainMenu(false);
             _uiManager.UpdateScore(0);
         }

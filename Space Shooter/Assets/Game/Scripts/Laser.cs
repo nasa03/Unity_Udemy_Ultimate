@@ -18,11 +18,12 @@ public class Laser : MonoBehaviour
 
         if(!gameObject.GetComponent<Renderer>().isVisible)
         {
-            if (transform.parent != null)
+            //Destroy(gameObject);
+            if (gameObject.transform.parent != null)
             {
-                Destroy(transform.parent.gameObject);
+                gameObject.transform.parent.gameObject.SetActive(false);
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -32,9 +33,14 @@ public class Laser : MonoBehaviour
         {
             if(transform.parent != null)
             {
-                Destroy(transform.parent.gameObject);
+                //Destroy(transform.parent.gameObject);
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            if (gameObject.transform.parent != null)
+            {
+                gameObject.transform.parent.gameObject.SetActive(false);
+            }
+            gameObject.SetActive(false);
         }
     }
 }

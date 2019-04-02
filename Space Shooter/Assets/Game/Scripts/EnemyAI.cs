@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField]
-    private GameObject EnemyExplosion;
+    private GameObject EnemyExplosion = null;
     [SerializeField]
     private float speed = 3.0f;
     private Vector3 spawnPosition;
 
-    private UIManager _uiManager;
+    private UIManager _uiManager = null;
     [SerializeField]
-    private AudioClip _audioClip;
+    private AudioClip _audioClip = null;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,8 @@ public class EnemyAI : MonoBehaviour
         {
             // transform.position = new Vector3(transform.position.x, cam.transform.position.y - camHeight / 2.0f, transform.position.z);
             //ReSpawn();
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -85,8 +86,8 @@ public class EnemyAI : MonoBehaviour
             //ReSpawn();
             _uiManager.UpdateScore(5);
             AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
-            Destroy(gameObject);
-            
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if (other.tag=="Projectile")
@@ -101,7 +102,8 @@ public class EnemyAI : MonoBehaviour
                 Procesado.FlashBangEffect();
             }
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 

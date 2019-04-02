@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private GameObject ShieldObject;
+    private GameObject ShieldObject=null;
     [SerializeField]
-    private GameObject Explosion;
+    private GameObject Explosion = null;
    // [SerializeField]
     //private int Lives;
     [SerializeField]
@@ -18,21 +18,28 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 5.0f;
     [SerializeField]
-    private GameObject laser;
+    private GameObject laser = null;
     [SerializeField]
-    private GameObject tripleShot;
+    private GameObject tripleShot=null;
     private bool isShooting;
     public float shootingTime;
     private float currentShootingTime;
     //public Transform projecileSpawnPoint;
     public int pooledAmount;
-    private List<GameObject> ProjectileList;
-    public GameObject ObjectPooler;
-    private UIManager _uiManager;
-    private GameManager _gameManager;
-    private AudioSource _audioSource;
+    private List<GameObject> ProjectileList = null;
+   
+    private UIManager _uiManager = null;
+    private GameManager _gameManager = null;
+    private AudioSource _audioSource = null;
     [SerializeField]
-    private GameObject[] Engines;
+    private GameObject[] Engines = null;
+    [SerializeField]
+    private GameObject ObjectPooler=null;
+    [SerializeField]
+    private GameObject TripleObjectPooler = null;
+    private GameObject currentObjectPooler = null;
+    [SerializeField]
+    private Transform projecileSpawnPoint=null;
 
     // Start is called before the first frame update
     void Start()
@@ -82,32 +89,40 @@ public class Player : MonoBehaviour
     void Fire()
     {
         _audioSource.Play();
-        Vector3 LaserPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         if(isTripleShot)
         {
-            Instantiate(tripleShot, LaserPos, Quaternion.identity);
+            //Instantiate(tripleShot, LaserPos, Quaternion.identity);
+            currentObjectPooler = TripleObjectPooler;
         }
         else
         {
-            Instantiate(laser, LaserPos, Quaternion.identity);
+            //Instantiate(laser, LaserPos, Quaternion.identity);
+            //ObjectPooler.GetComponent<ObjectPooler>().SetPooledObject(laser);
+            currentObjectPooler = ObjectPooler;
         }
         
         //Instantiate(laserPrefab);
-        /*
-        GameObject obj = ObjectPooler.GetComponent<ObjectPooler>().GetPooledObject();
+        
+        GameObject obj = currentObjectPooler.GetComponent<ObjectPooler>().GetPooledObject();
+        
         if (obj == null)
         {
             return;
         }
-
-        obj.transform.position = projecileSpawnPoint.position;
-        obj.transform.rotation = transform.rotation;
-        obj.transform.localScale = transform.localScale;
-        obj.SetActive(true);
-        obj.GetComponent<Projectile>().isAlive = true;
-        obj.GetComponent<Projectile>().isAllied = true;
-        obj.GetComponent<Projectile>().shootDirection1 = new Vector3(1.0f, 0.0f, 0.0f);
-        */
+        
+        if (obj.transform.parent != null)
+        {
+            obj.transform.parent.gameObject.transform.position = projecileSpawnPoint.position;
+            obj.transform.parent.gameObject.transform.rotation = transform.rotation;
+            obj.transform.parent.gameObject.SetActive(true);
+        }
+        else
+        {
+            obj.transform.position = projecileSpawnPoint.position;
+            obj.transform.rotation = transform.rotation;
+            obj.SetActive(true);
+        }
+       
     }
 
 
@@ -251,8 +266,10 @@ public class Player : MonoBehaviour
             }
            
             
-            Destroy(gameObject);
-        }else{
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+        else{
             if(Energy==2)
             {
                 Engines[0].SetActive(true);

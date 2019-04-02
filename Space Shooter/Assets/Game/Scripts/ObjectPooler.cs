@@ -24,13 +24,18 @@ public class ObjectPooler : MonoBehaviour
         pooledObjects = new List<GameObject>();
         for (int i = 0; i < pooledAmount; i++)
         {
-            GameObject obj = (GameObject)Instantiate(pooledObject);
+            GameObject obj = Instantiate(pooledObject);
+            if(obj.transform.parent!=null)
+            {
+                obj.transform.parent.gameObject.SetActive(false);
+            }
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
 
     }
 
+   
     public GameObject GetPooledObject()
     {
         for (int i = 0; i < pooledObjects.Count; i++)
@@ -42,7 +47,7 @@ public class ObjectPooler : MonoBehaviour
         }
         if (willGrow)
         {
-            GameObject obj = (GameObject)Instantiate(pooledObject);
+            GameObject obj = Instantiate(pooledObject);
             pooledObjects.Add(obj);
             return obj;
         }
