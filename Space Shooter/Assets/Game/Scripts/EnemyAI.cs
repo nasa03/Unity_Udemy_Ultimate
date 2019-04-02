@@ -95,6 +95,12 @@ public class EnemyAI : MonoBehaviour
             //ReSpawn();
             _uiManager.UpdateScore(10);
             AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
+            PostProcessing Procesado= FindObjectOfType<PostProcessing>();
+            if(Procesado!=null)
+            {
+                Procesado.FlashBangEffect();
+            }
+
             Destroy(gameObject);
         }
     }

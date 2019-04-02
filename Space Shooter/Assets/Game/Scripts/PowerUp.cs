@@ -36,7 +36,6 @@ public class PowerUp : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("OnTriggerEnter2D " + other.name);
         if (other.tag=="Player")
         {
             Player player = FindObjectOfType<Player>();
