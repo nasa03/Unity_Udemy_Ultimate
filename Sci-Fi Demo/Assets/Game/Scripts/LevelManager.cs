@@ -13,6 +13,9 @@ public class LevelManager : MonoBehaviour
     private AudioSource ReloadSound = null;
     [SerializeField]
     private AudioSource PickUpSound=null;
+    [SerializeField]
+    private AudioSource WinSound = null;
+    private bool hasWeapon = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,11 @@ public class LevelManager : MonoBehaviour
         {
             TheUIManager.SetInventory(true);
         }
+
+        if(totalCoins <=0 && TheUIManager.isInventoryActive())
+        {
+            TheUIManager.SetInventory(false);
+        }
     }
 
     public void ReloadAmmo()
@@ -40,8 +48,7 @@ public class LevelManager : MonoBehaviour
     public void UpdateAmmo(int count)
     {
         currentAmmo=count;
-        
-        
+        TheUIManager.UpdateAmmo(currentAmmo);
     }
 
     public int GetMaxAmmo()
@@ -69,5 +76,16 @@ public class LevelManager : MonoBehaviour
     public int GetTotalCoins()
     {
         return totalCoins;
+    }
+
+    public void GameWin()
+    {
+        WinSound.Play();
+        hasWeapon = true;
+    }
+
+    public bool isWeaponActive()
+    {
+        return hasWeapon;
     }
 }

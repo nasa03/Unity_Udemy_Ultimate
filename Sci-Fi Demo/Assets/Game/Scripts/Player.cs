@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     private int reloadingTime = 5;
     private bool isReloading = false;
     private LevelManager TheLevelManager = null;
+    [SerializeField]
+    private GameObject TheWeapon = null; 
     private int currentAmmo = 0;
     
     // Start is called before the first frame update
@@ -25,14 +27,17 @@ public class Player : MonoBehaviour
         TheCharacterController = GetComponent<CharacterController>();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-     
         TheLevelManager = GameObject.FindObjectOfType<LevelManager>().GetComponent<LevelManager>();
-        currentAmmo=TheLevelManager.GetCurrentAmmo();
+        currentAmmo=TheLevelManager.GetMaxAmmo();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(TheLevelManager.isWeaponActive() && !TheWeapon.gameObject.activeSelf)
+        {
+            TheWeapon.gameObject.SetActive(true);
+        }
         Movement();
 
         Shooting();
@@ -51,7 +56,11 @@ public class Player : MonoBehaviour
 
     private void Shooting()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(!TheLevelManager.isWeaponActive())
+        {
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
         {
             Reload();
         }
