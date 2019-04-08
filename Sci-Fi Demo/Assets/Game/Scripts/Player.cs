@@ -81,6 +81,12 @@ public class Player : MonoBehaviour
                     obj.transform.position = hitInfo.point;
                     obj.transform.rotation = Quaternion.LookRotation(hitInfo.normal);
                 }
+
+                Destructable crate = hitInfo.transform.GetComponent<Destructable>();
+                 if(crate!=null)
+                {
+                    crate.DestroyCrate();
+                }
             }
         }else{
             MuzzleFlash.SetActive(false);
